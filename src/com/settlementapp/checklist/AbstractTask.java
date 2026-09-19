@@ -1,6 +1,8 @@
 package com.settlementapp.checklist;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 // why abstract class?
 // if straight to a concrete class like CustomTask implements Task, have to write bodies for all six methods right there.
@@ -17,6 +19,35 @@ public abstract class AbstractTask implements Task {
   // a constructor's job is to establish a valid starting state, not to mirror every field
   // a constructor does not need to match fields 1:1 at all
   public AbstractTask(String id, String description, String priority, LocalDate deadline){
+    // Validation inside AbstractTask's constructor
+    // 1. Main calls new CustomTask(...).
+    //2. CustomTask's constructor calls super(...), which runs AbstractTask's constructor.
+    //3. AbstractTask's constructor runs its validation if checks. One of them evaluates to true.
+    //4. AbstractTask executes throw new InvalidTaskException(...) — this is the one and only place the exception is created.
+    //5. Once thrown, the exception doesn't just vanish or get "handled" automatically
+    // — it propagates upward through every method call currently in progress,
+    // unwinding the call stack: out of AbstractTask's constructor, out of CustomTask's constructor
+    // (since super(...) threw, CustomTask's constructor can't finish either), and back to wherever Main called new CustomTask(...).
+    //6. In Main, that call site happens to be wrapped in a try { ... } catch (InvalidTaskException e) { ... } block.
+    // The catch block is what finally stops the propagation and lets you print e.getMessage()
+
+
+    // .isBlank() (checks null-or-whitespace-only in one call) rather than .strip().isEmpty()
+    if (id == null || id.isBlank()){
+      throw new InvalidTaskException("task ID cannot be empty");
+    }
+    if (description == null || description.isBlank()){
+      throw new InvalidTaskException("Description is empty");
+    }
+
+    // List.of: immutable objects
+    // not planning to add or remove valid priorities at runtime — it's a fixed, permanent set of three values
+    List<String> validPriorities = List.of("High", "Medium", "Low");
+    if (priority == null || !validPriorities.contains(priority)){
+      throw new InvalidTaskException("Invalid priority");
+    }
+
+
     this.id = id;
     this.description = description;
     this.priority = priority;

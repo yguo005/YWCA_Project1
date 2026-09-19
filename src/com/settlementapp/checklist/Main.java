@@ -19,11 +19,11 @@ public class Main {
 
     TaskRepository repository = new TaskRepository();
 
-    CustomTask customTask1 = new CustomTask("T2", "Doctor appointment", "High", LocalDate.of(2026,9,19));
-    CustomTask customTask2 = new CustomTask("T3", "Grocery shopping", "Low", LocalDate.of(2026,9,20));
+    CustomTask customTask2 = new CustomTask("T2", "Doctor appointment", "High", LocalDate.of(2026,9,19));
+    CustomTask customTask3 = new CustomTask("T3", "Grocery shopping", "Low", LocalDate.of(2026,9,20));
 
-    repository.add(customTask1);
     repository.add(customTask2);
+    repository.add(customTask3);
     System.out.println("Size before: " + repository.getAll().size());
 
     List<Task> stolen = repository.getAll();
@@ -72,6 +72,37 @@ public class Main {
       }
     }
 
+    // Case 1: empty id
+    try {
+      Task t = new CustomTask(" ", "School registration", "Medium", LocalDate.of(2026,9,15));
+      System.out.println("This should not print for bad id test");
+    } catch (InvalidTaskException e) {
+      System.out.println("Error: " + e.getMessage());
+    }
+
+    // Case 2: empty description
+    try{
+      Task t4 = new CustomTask("T4", " ", "Low", LocalDate.of(2026,10,15));
+      System.out.println("This should not print for bad description test");
+    } catch (InvalidTaskException e){
+      System.out.println("Error: " + e.getMessage());
+    }
+
+    //Case 3: priority = "urgent"
+    try {
+      Task t5 = new CustomTask("T5", "Pick up kid", "urgent", LocalDate.of(2026,9,19));
+      System.out.println("This should not print for bad priority test");
+    } catch (InvalidTaskException e) {
+      System.out.println("Error: " + e.getMessage());
+    }
+
+    // Case 4: priority = null
+    try {
+      Task t6 = new CustomTask("T6", "Pick up kid", null, LocalDate.of(2026,9,19));
+      System.out.println("This should not print for bad priority test");
+    } catch (InvalidTaskException e){
+      System.out.println("Error: " + e.getMessage());
+    }
 
   }
 
