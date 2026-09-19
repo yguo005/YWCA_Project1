@@ -104,6 +104,12 @@ public class Main {
       System.out.println("Error: " + e.getMessage());
     }
 
+    Task official = new OfficialSettlementTask("T7", "Apply for SIN", "High", LocalDate.of(2026,9,30), "Service Canada");
+    repository.add(official);
+    for (Task t :repository.getAll()){
+      System.out.println(t.getId() + " [ " + t.getCategoryLabel() + " ]: " + t.getDescription() );
+    }
+
   }
 
 }

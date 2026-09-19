@@ -86,6 +86,6 @@ public abstract class AbstractTask implements Task {
   // "Government Requirement" for official tasks, "Personal Goal" for custom ones),
   // When a behavior must vary but you can't write a meaningful shared implementation,
   // that's exactly when a method becomes abstract instead of concrete.
-  public abstract String getCategoryLabel();
+  //public abstract String getCategoryLabel();
 
 }

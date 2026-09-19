@@ -17,4 +17,6 @@ public interface Task {
 
   LocalDate getDeadline();
 
+  String getCategoryLabel();
+
 }
