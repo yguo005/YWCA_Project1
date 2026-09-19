@@ -9,11 +9,11 @@ import java.util.List;
 // Then when build OfficialSettlementTask implements Task next, you'd copy-paste those same five identical method bodies again
 // The abstract class exists specifically to hold the shared bodies once.
 public abstract class AbstractTask implements Task {
-  private String id;
-  private String description;
+  private final String id;
+  private final String description;
   private String priority;
   private boolean complete;
-  private LocalDate deadline;
+  private final LocalDate deadline;
 
   // why complete is not in the constructor parameter?
   // a constructor's job is to establish a valid starting state, not to mirror every field

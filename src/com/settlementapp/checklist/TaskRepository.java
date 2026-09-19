@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class TaskRepository {
+public final class TaskRepository {
   private List<Task> tasks = new ArrayList<>();
 
   public void add(Task task) {

@@ -3,7 +3,7 @@ package com.settlementapp.checklist;
 import java.time.LocalDate;
 
 public class OfficialSettlementTask extends AbstractTask {
-  private String governmentAgency;
+  private final String governmentAgency;
 
   // why complete is not in the constructor parameter?
   // a constructor's job is to establish a valid starting state, not to mirror every field
